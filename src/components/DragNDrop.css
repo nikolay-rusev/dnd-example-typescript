@@ -1,0 +1,17 @@
+/* drag container */
+.actual-container {
+    background-color: aliceblue;
+    opacity: 0.9;
+}
+
+.dnd-container {
+    background-color: aquamarine;
+    opacity: 0.9;
+}
+
+/* compensation elements */
+.top-fill,
+.bottom-fill {
+    background-color: palevioletred;
+    opacity: 0.3;
+}
