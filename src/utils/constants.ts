@@ -1,3 +1,5 @@
+import {CSSProperties} from "react";
+
 export const TIMEOUT: number = 0;
 export const TIMEOUT_SCROLL: number = 200;
 export const REGULAR_WIDTH: number = 300;
@@ -6,34 +8,14 @@ export const SHRUNK_HEIGHT: number = 40;
 export const OUTER_CONTENT_HEIGHT: number = 450;
 export const TRANSITION: string = "all 0.4s ease";
 
-export interface Style {
-    visibility?: string;
-    position?: string;
-    top?: number;
-    right?: number;
-    width?: string;
-    cursor?: string;
-    padding?: string;
-    background?: string;
-    color?: string;
-    borderRadius?: string;
-    marginBottom?: number;
-    display?: string;
-    flexDirection?: string;
-    alignItems?: string;
-    justifyContent?: string;
-    transition?: string;
-    height?: number;
-}
-
-export const shrinkContainerStyle: Style = {
+export const shrinkContainerStyle: CSSProperties = {
     visibility: "hidden",
     position: "absolute",
     top: 0,
     right: 0
 };
 
-export const dragHandleStyle: Style = {
+export const dragHandleStyle: CSSProperties = {
     width: "100%",
     cursor: "grab",
     padding: "1px",
@@ -43,7 +25,7 @@ export const dragHandleStyle: Style = {
 };
 
 // default sortable item style
-export const defaultItemStyle: Style = {
+export const defaultItemStyle: CSSProperties = {
     marginBottom: 8,
     background: "lightblue",
     display: "flex",
@@ -60,7 +42,7 @@ export const defaultItemStyle: Style = {
 };
 
 // default shrink item style
-export const dummyItemStyle: Style = {
+export const dummyItemStyle: CSSProperties = {
     ...defaultItemStyle,
     height: SHRUNK_HEIGHT
 };

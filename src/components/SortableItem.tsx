@@ -19,26 +19,7 @@ export const calcItemStyle = ({
     activeId,
     transform,
     last
-}: CalcItemStyleProps): {
-    cursor?: string;
-    padding?: string;
-    visibility?: string;
-    color?: string;
-    alignItems?: string;
-    flexDirection?: string;
-    display?: string;
-    right?: number;
-    justifyContent?: string;
-    transition?: string;
-    transform: string;
-    top?: number;
-    borderRadius?: string;
-    background?: string;
-    width?: string;
-    marginBottom: number;
-    position?: string;
-    height: number;
-} => {
+}: CalcItemStyleProps): CSSProperties => {
     return {
         ...defaultItemStyle,
         height: activeId ? SHRUNK_HEIGHT : REGULAR_HEIGHT + getRandomInt(300),
@@ -72,12 +53,12 @@ export const SortableItem: React.FC<SortableItemProps> = ({
         <div
             ref={setNodeRef}
             {...attributes}
-            style={itemStyle as CSSProperties}
+            style={itemStyle}
             data-id={dragItemId}
             data-index={id}
             className={className}
         >
-            <div {...listeners} className={"drag-handle"} style={dragHandleStyle as CSSProperties}>
+            <div {...listeners} className={"drag-handle"} style={dragHandleStyle}>
                 ☰
             </div>
             {id}
