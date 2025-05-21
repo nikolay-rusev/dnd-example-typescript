@@ -1,5 +1,6 @@
 import React, { useRef, useState, FC } from "react";
 import { DndContext, DragOverlay, MeasuringStrategy, pointerWithin } from "@dnd-kit/core";
+// import { restrictToVerticalAxis, snapCenterToCursor } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import {
     OUTER_CONTENT_HEIGHT,
@@ -12,6 +13,7 @@ import { calculateFillHeights } from "../utils/calc";
 import { SortableItem } from "./SortableItem";
 import "./DragNDrop.css";
 
+// handle on top or side - changes recalculation of compensation
 const topHandle: boolean = true;
 const allowBottomCompensation: boolean = true;
 const itemsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -20,12 +22,14 @@ const DragNDrop: FC = () => {
     const [items, setItems] = useState<number[]>(itemsArray);
     const [activeId, setActiveId] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
+    // top & bottom compensations
     const [topFillHeight, setTopFillHeight] = useState<number>(0);
     const [bottomFillHeight, setBottomFillHeight] = useState<number>(0);
 
     const handleDragStart = (event: any): void => {
         if (!containerRef.current) return;
 
+        // scroll offset on y
         const scrollOffset: number = window.scrollY;
         console.log("scrollOffset", scrollOffset);
 
@@ -33,6 +37,7 @@ const DragNDrop: FC = () => {
 
         setTopFillHeight(top);
         setBottomFillHeight(bottom);
+        // restore scroll position
         console.log("before adjust scrollOffset", scrollOffset);
         console.log("----------------------------------------------------------------------");
         window.scrollTo({ top: scrollOffset });
@@ -47,6 +52,7 @@ const DragNDrop: FC = () => {
 
         setActiveId(null);
 
+        // reset of fill heights
         setTimeout(() => {
             setTopFillHeight(0);
             setBottomFillHeight(0);
@@ -56,6 +62,7 @@ const DragNDrop: FC = () => {
             setItems((prev) =>
                 arrayMove(prev, prev.indexOf(Number(activeId)), prev.indexOf(over.id))
             );
+            // scroll dragged element into view
             scrollAfterDragEnd(activeId);
         }
     };
@@ -82,6 +89,7 @@ const DragNDrop: FC = () => {
                         />
                     ))}
                 </SortableContext>
+                {/*<DragOverlay modifiers={[snapCenterToCursor, restrictToVerticalAxis]}>*/}
                 <DragOverlay modifiers={[]}>
                     {activeId ? (
                         <SortableItem
