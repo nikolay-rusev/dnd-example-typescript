@@ -1,4 +1,4 @@
-import React, { useRef, useState, FC, CSSProperties } from "react";
+import React, { useRef, useState, FC } from "react";
 import { DndContext, DragOverlay, MeasuringStrategy, pointerWithin } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import {
@@ -65,7 +65,7 @@ const DragNDrop: FC = () => {
         items,
         dummy
     }: {
-        activeId: number;
+        activeId: number | null;
         items: number[];
         dummy?: boolean;
     }) => {
@@ -95,9 +95,7 @@ const DragNDrop: FC = () => {
         );
     };
 
-    // @ts-ignore
     const children = getDraggableItems({ activeId, items });
-    // @ts-ignore
     const dummyChildren = getDraggableItems({ activeId, items, dummy: true });
 
     return (
@@ -133,7 +131,7 @@ const DragNDrop: FC = () => {
                             {children}
                         </DndContext>
                     </div>
-                    <div id="shrink-container" style={shrinkContainerStyle as CSSProperties}>
+                    <div id="shrink-container" style={shrinkContainerStyle}>
                         {dummyChildren}
                     </div>
                 </div>

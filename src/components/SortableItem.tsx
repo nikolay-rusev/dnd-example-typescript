@@ -10,16 +10,12 @@ import {
 import { getRandomInt } from "../utils/helpers";
 
 interface CalcItemStyleProps {
-    activeId: number;
+    activeId: number | null;
     transform: { x?: number; y?: number } | null;
     last?: boolean;
 }
 
-export const calcItemStyle = ({
-    activeId,
-    transform,
-    last
-}: CalcItemStyleProps): CSSProperties => {
+export const calcItemStyle = ({ activeId, transform, last }: CalcItemStyleProps): CSSProperties => {
     return {
         ...defaultItemStyle,
         height: activeId ? SHRUNK_HEIGHT : REGULAR_HEIGHT + getRandomInt(300),
@@ -30,7 +26,7 @@ export const calcItemStyle = ({
 
 interface SortableItemProps {
     id: number;
-    activeId: number;
+    activeId: number | null;
     dummy?: boolean;
     last?: boolean;
     className?: string;
