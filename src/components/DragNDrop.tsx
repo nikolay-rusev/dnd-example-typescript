@@ -19,7 +19,7 @@ const itemsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const DragNDrop: FC = () => {
     const [items, setItems] = useState<number[]>(itemsArray);
     const [activeId, setActiveId] = useState<number | null>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
     const [topFillHeight, setTopFillHeight] = useState<number>(0);
     const [bottomFillHeight, setBottomFillHeight] = useState<number>(0);
 
@@ -28,7 +28,7 @@ const DragNDrop: FC = () => {
 
         const scrollOffset: number = window.scrollY;
         console.log("scrollOffset", scrollOffset);
-        // @ts-ignore
+
         const { top, bottom } = calculateFillHeights({ event, containerRef, topHandle });
 
         setTopFillHeight(top);

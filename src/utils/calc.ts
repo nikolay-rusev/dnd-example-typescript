@@ -1,11 +1,11 @@
-import React from "react";
+import { RefObject } from "react";
 import { getActualElementHeight } from "./helpers";
 
 interface CalculateFillHeightsProps {
     event: {
         activatorEvent: MouseEvent;
     };
-    containerRef: React.RefObject<HTMLDivElement>;
+    containerRef: RefObject<HTMLDivElement | null>;
     topHandle: boolean;
 }
 
@@ -16,14 +16,14 @@ export const calculateFillHeights = ({
 }: CalculateFillHeightsProps): { top: number; bottom: number } => {
     const scrollOffset: number = window.scrollY;
 
-    const initialHeight: number = containerRef?.current?.getBoundingClientRect().height;
+    const initialHeight: number = containerRef?.current?.getBoundingClientRect().height as number;
 
     const shrinkContainer: HTMLElement | null = document.getElementById("shrink-container");
     const shrinkContainerHeight: number | undefined = shrinkContainer?.getBoundingClientRect()
         .height;
 
     const heightOfElementsBefore: number = Math.abs(
-        containerRef?.current?.getBoundingClientRect().top -
+        (containerRef?.current?.getBoundingClientRect().top as number) -
             document.body.getBoundingClientRect().top
     );
 

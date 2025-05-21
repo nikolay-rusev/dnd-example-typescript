@@ -1,4 +1,4 @@
-import {CSSProperties} from "react";
+import { CSSProperties } from "react";
 
 export const TIMEOUT: number = 0;
 export const TIMEOUT_SCROLL: number = 200;
@@ -32,10 +32,8 @@ export const defaultItemStyle: CSSProperties = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between", // Adjusted for drag handle placement
-    //@ts-ignore
     padding: 5,
     transition: TRANSITION,
-    //@ts-ignore
     width: REGULAR_WIDTH,
     height: REGULAR_HEIGHT,
     transform: `translate(0, 0)`
