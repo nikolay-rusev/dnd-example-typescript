@@ -1,4 +1,4 @@
-import { TIMEOUT_SCROLL } from "./constants";
+import { TIMEOUT_SCROLL_AFTER_DRAG_END } from "./constants";
 
 // calc element height + margins
 export const getActualElementHeight = (el: HTMLElement): number => {
@@ -15,7 +15,7 @@ export const scrollAfterDragEnd = (id: string | number): void => {
             behavior: "smooth",
             block: "center"
         });
-    }, TIMEOUT_SCROLL);
+    }, TIMEOUT_SCROLL_AFTER_DRAG_END);
 };
 
 export const getRandomInt = (max: number): number => Math.floor(Math.random() * max);

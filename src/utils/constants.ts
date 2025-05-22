@@ -1,12 +1,19 @@
 import { CSSProperties } from "react";
 
-export const TIMEOUT: number = 0;
-export const TIMEOUT_SCROLL: number = 200;
+// timeout for reset of compensations
+export const RESET_TIMEOUT: number = 0;
+
+// scroll timeout after drag end should be >= from the transition time,
+// so that the transition has completed before scroll is initiated
+export const TIMEOUT_SCROLL_AFTER_DRAG_END: number = 400;
+export const TRANSITION: string = "all 0.4s ease";
+
 export const REGULAR_WIDTH: number = 300;
 export const REGULAR_HEIGHT: number = 100;
 export const SHRUNK_HEIGHT: number = 40;
+
+// simulate outer content
 export const OUTER_CONTENT_HEIGHT: number = 450;
-export const TRANSITION: string = "all 0.4s ease";
 
 export const shrinkContainerStyle: CSSProperties = {
     visibility: "hidden",

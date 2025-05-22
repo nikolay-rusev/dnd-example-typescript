@@ -5,7 +5,7 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import {
     OUTER_CONTENT_HEIGHT,
     shrinkContainerStyle,
-    TIMEOUT,
+    RESET_TIMEOUT,
     TRANSITION
 } from "../utils/constants";
 import { scrollAfterDragEnd } from "../utils/helpers";
@@ -56,7 +56,7 @@ const DragNDrop: FC = () => {
         setTimeout(() => {
             setTopFillHeight(0);
             setBottomFillHeight(0);
-        }, TIMEOUT);
+        }, RESET_TIMEOUT);
 
         if (over) {
             setItems((prev) =>
