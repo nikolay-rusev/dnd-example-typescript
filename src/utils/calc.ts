@@ -59,7 +59,9 @@ export const calculateFillHeights = ({
     const draggedElementParentTop: number = draggedElement?.parentElement?.getBoundingClientRect()
         .top as number;
     // distance from top of drag container to the top of dragged element
-    let fromContainerTopToElementTop: number = Math.abs(draggedElementTop - draggedElementParentTop);
+    let fromContainerTopToElementTop: number = Math.abs(
+        draggedElementTop - draggedElementParentTop
+    );
     if (draggedElementTop < 0) {
         fromContainerTopToElementTop = Math.abs(draggedElementParentTop - draggedElementTop);
     }
@@ -69,7 +71,9 @@ export const calculateFillHeights = ({
     const shrinkElementParentTop: number = currentShrinkElement?.parentElement?.getBoundingClientRect()
         .top as number;
     // distance from top of shrink container to the top of shrink element
-    let fromContainerTopToElementTopShrink: number = Math.abs(shrinkElementTop - shrinkElementParentTop);
+    let fromContainerTopToElementTopShrink: number = Math.abs(
+        shrinkElementTop - shrinkElementParentTop
+    );
     if (shrinkElementTop < 0) {
         fromContainerTopToElementTopShrink = Math.abs(shrinkElementParentTop - shrinkElementTop);
     }
@@ -88,11 +92,15 @@ export const calculateFillHeights = ({
     const mouseYInRectangleShrink: number = topHandle
         ? mouseYInRectangle * (1 + ratio)
         : ratio * shrinkElementHeight;
-    const topCompensation: number = fromContainerTopToElementTop + mouseYInRectangle - (fromContainerTopToElementTopShrink + mouseYInRectangleShrink);
+    const topCompensation: number =
+        fromContainerTopToElementTop +
+        mouseYInRectangle -
+        (fromContainerTopToElementTopShrink + mouseYInRectangleShrink);
     console.log("topCompensation", topCompensation);
 
     // easy
     const bottomCompensation: number = leftoverHeight - topCompensation;
+    console.log("bottomCompensation", bottomCompensation);
 
     return {
         top: topCompensation,
