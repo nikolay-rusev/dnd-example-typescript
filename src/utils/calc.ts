@@ -85,10 +85,10 @@ export const calculateFillHeights = ({
 
     // hypothetical mouse distance from top of shrink element to mouse point in shrink element
     // depend on the position of the handle
-    const handleAdjustment: number = topHandle
+    const mouseYInRectangleShrink: number = topHandle
         ? mouseYInRectangle * (1 + ratio)
         : ratio * shrinkElementHeight;
-    const topCompensation: number = realHeight + mouseYInRectangle - (shrinkHeight + handleAdjustment);
+    const topCompensation: number = realHeight + mouseYInRectangle - (shrinkHeight + mouseYInRectangleShrink);
     console.log("topCompensation", topCompensation);
 
     // easy
