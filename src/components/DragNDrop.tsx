@@ -18,6 +18,7 @@ const topHandle: boolean = true;
 const allowBottomCompensation: boolean = true;
 const scrollToElementAfterDrag: boolean = true;
 const shouldRestoreScrollPosition: boolean = true;
+const randomizeItemHeight: boolean = true;
 const itemsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const DragNDrop: FC = () => {
@@ -86,6 +87,7 @@ const DragNDrop: FC = () => {
                             key={id}
                             dummy={dummy}
                             last={index === items.length - 1}
+                            randomizeHeight={randomizeItemHeight}
                         />
                     ))}
                 </SortableContext>
