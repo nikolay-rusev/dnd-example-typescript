@@ -18,4 +18,10 @@ export const scrollAfterDragEnd = (id: string | number): void => {
     }, TIMEOUT_SCROLL_AFTER_DRAG_END);
 };
 
+export const restoreScrollPosition = (scrollOffset: number) => {
+    console.log("before restore scroll position", scrollOffset);
+    console.log("----------------------------------------------------------------------");
+    window.scrollTo({ top: scrollOffset });
+};
+
 export const getRandomInt = (max: number): number => Math.floor(Math.random() * max);

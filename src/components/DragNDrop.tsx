@@ -8,7 +8,7 @@ import {
     RESET_TIMEOUT,
     TRANSITION
 } from "../utils/constants";
-import { scrollAfterDragEnd } from "../utils/helpers";
+import { restoreScrollPosition, scrollAfterDragEnd } from "../utils/helpers";
 import { calculateFillHeights } from "../utils/calc";
 import { SortableItem } from "./SortableItem";
 import "./DragNDrop.css";
@@ -17,6 +17,7 @@ import "./DragNDrop.css";
 const topHandle: boolean = true;
 const allowBottomCompensation: boolean = true;
 const scrollToElementAfterDrag: boolean = true;
+const shouldRestoreScrollPosition: boolean = true;
 const itemsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const DragNDrop: FC = () => {
@@ -39,10 +40,7 @@ const DragNDrop: FC = () => {
         setTopFillHeight(top);
         setBottomFillHeight(bottom);
 
-        // restore scroll position
-        console.log("before adjust scrollOffset", scrollOffset);
-        console.log("----------------------------------------------------------------------");
-        window.scrollTo({ top: scrollOffset });
+        if (shouldRestoreScrollPosition) restoreScrollPosition(scrollOffset);
 
         setActiveId(event.active.id as number);
     };
