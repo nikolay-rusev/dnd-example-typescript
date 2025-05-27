@@ -59,24 +59,24 @@ export const calculateFillHeights = ({
     const draggedElementParentTop: number = draggedElement?.parentElement?.getBoundingClientRect()
         .top as number;
     // distance from top of drag container to the top of dragged element
-    let realHeight: number = Math.abs(draggedElementTop - draggedElementParentTop);
+    let fromContainerTopToElementTop: number = Math.abs(draggedElementTop - draggedElementParentTop);
     if (draggedElementTop < 0) {
-        realHeight = Math.abs(draggedElementParentTop - draggedElementTop);
+        fromContainerTopToElementTop = Math.abs(draggedElementParentTop - draggedElementTop);
     }
-    console.log("realHeight", realHeight);
+    console.log("fromContainerTopToElementTop", fromContainerTopToElementTop);
 
     const shrinkElementTop: number = currentShrinkElement.getBoundingClientRect().top;
     const shrinkElementParentTop: number = currentShrinkElement?.parentElement?.getBoundingClientRect()
         .top as number;
     // distance from top of shrink container to the top of shrink element
-    let shrinkHeight: number = Math.abs(shrinkElementTop - shrinkElementParentTop);
+    let fromContainerTopToElementTopShrink: number = Math.abs(shrinkElementTop - shrinkElementParentTop);
     if (shrinkElementTop < 0) {
-        shrinkHeight = Math.abs(shrinkElementParentTop - shrinkElementTop);
+        fromContainerTopToElementTopShrink = Math.abs(shrinkElementParentTop - shrinkElementTop);
     }
-    console.log("shrinkHeight", shrinkHeight);
+    console.log("fromContainerTopToElementTopShrink", fromContainerTopToElementTopShrink);
 
     // mouse distance from top of dragged element to mouse point in dragged element
-    const mouseYInRectangle: number = mouseY - realHeight;
+    const mouseYInRectangle: number = mouseY - fromContainerTopToElementTop;
     console.log("mouseYInRectangle", mouseYInRectangle);
 
     // radio for calculating the mouse point in shrunk element
@@ -84,11 +84,11 @@ export const calculateFillHeights = ({
     console.log("ratio", ratio);
 
     // hypothetical mouse distance from top of shrink element to mouse point in shrink element
-    // depend on the position of the handle
+    // depends on the position of the handle
     const mouseYInRectangleShrink: number = topHandle
         ? mouseYInRectangle * (1 + ratio)
         : ratio * shrinkElementHeight;
-    const topCompensation: number = realHeight + mouseYInRectangle - (shrinkHeight + mouseYInRectangleShrink);
+    const topCompensation: number = fromContainerTopToElementTop + mouseYInRectangle - (fromContainerTopToElementTopShrink + mouseYInRectangleShrink);
     console.log("topCompensation", topCompensation);
 
     // easy
