@@ -7,14 +7,12 @@ interface CalculateFillHeightsProps {
     };
     containerRef: RefObject<HTMLDivElement | null>;
     topHandle: boolean;
-    allowBottomCompensation: boolean;
 }
 
 export const calculateFillHeights = ({
     event,
     containerRef,
-    topHandle,
-    allowBottomCompensation
+    topHandle
 }: CalculateFillHeightsProps): { top: number; bottom: number } => {
     // scroll offset Y
     const scrollOffset: number = window.scrollY;
@@ -125,10 +123,7 @@ export const calculateFillHeights = ({
     const leftoverBottomSpace = fromMouseYToDocumentBottom - fromMouseYToWindowBottom;
     console.log("leftoverBottomSpace", leftoverBottomSpace);
 
-    let bottom: number = bottomCompensation;
-    if (!allowBottomCompensation) {
-        bottom = 0;
-    }
+    let bottom: number = 0;
     // we cannot skip compensation, because we don't have enough space
     if (leftoverBottomSpace < bottomCompensation) {
         bottom = bottomCompensation;

@@ -15,8 +15,6 @@ import "./DragNDrop.css";
 
 // handle on top or side - changes recalculation of compensation
 const topHandle: boolean = true;
-// compensate from bottom
-const allowBottomCompensation: boolean = false;
 // scroll to element after drag
 const scrollAfterDrag: boolean = true;
 // restore scroll position to the one before starting drag
@@ -44,8 +42,7 @@ const DragNDrop: FC = () => {
         const { top, bottom } = calculateFillHeights({
             event,
             containerRef,
-            topHandle,
-            allowBottomCompensation
+            topHandle
         });
 
         setTopFillHeight(top);
