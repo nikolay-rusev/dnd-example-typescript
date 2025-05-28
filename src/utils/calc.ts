@@ -1,5 +1,6 @@
 import { RefObject } from "react";
 import { getActualElementHeight } from "./helpers";
+import { SystemLogs } from "./logger";
 
 interface CalculateFillHeightsProps {
     event: {
@@ -16,7 +17,7 @@ export const calculateFillHeights = ({
 }: CalculateFillHeightsProps): { top: number; bottom: number } => {
     // scroll offset Y
     const scrollOffset: number = window.scrollY;
-    console.log("scrollOffset", scrollOffset);
+    SystemLogs.log("scrollOffset", scrollOffset);
 
     // Capture the original container height
     const initialHeight: number = containerRef?.current?.getBoundingClientRect().height as number;
@@ -32,7 +33,7 @@ export const calculateFillHeights = ({
             document.body.getBoundingClientRect().top
     );
 
-    console.log("heightOfElementsBefore", heightOfElementsBefore);
+    SystemLogs.log("heightOfElementsBefore", heightOfElementsBefore);
 
     // Calculate remaining space after shrink has happened
     const leftoverHeight: number = initialHeight - (shrinkContainerHeight ?? 0);
@@ -48,13 +49,13 @@ export const calculateFillHeights = ({
     ) as HTMLElement;
 
     const shrinkElementHeight: number = getActualElementHeight(currentShrinkElement);
-    console.log("shrinkElementHeight", shrinkElementHeight);
+    SystemLogs.log("shrinkElementHeight", shrinkElementHeight);
     const draggedElementHeight: number = getActualElementHeight(draggedElement as HTMLElement);
-    console.log("draggedElementHeight", draggedElementHeight);
+    SystemLogs.log("draggedElementHeight", draggedElementHeight);
 
     // remove height of the elements before the drag container from mouse y, adjust with scrollOffset also
     const mouseY: number = activatorEvent.clientY + scrollOffset - heightOfElementsBefore;
-    console.log("mouseY", mouseY);
+    SystemLogs.log("mouseY", mouseY);
 
     const draggedElementTop: number = draggedElement?.getBoundingClientRect().top as number;
     const draggedElementParentTop: number = draggedElement?.parentElement?.getBoundingClientRect()
@@ -66,7 +67,7 @@ export const calculateFillHeights = ({
     if (draggedElementTop < 0) {
         fromContainerTopToElementTop = Math.abs(draggedElementParentTop - draggedElementTop);
     }
-    console.log("fromContainerTopToElementTop", fromContainerTopToElementTop);
+    SystemLogs.log("fromContainerTopToElementTop", fromContainerTopToElementTop);
 
     const shrinkElementTop: number = currentShrinkElement.getBoundingClientRect().top;
     const shrinkElementParentTop: number = currentShrinkElement?.parentElement?.getBoundingClientRect()
@@ -78,15 +79,15 @@ export const calculateFillHeights = ({
     if (shrinkElementTop < 0) {
         fromContainerTopToElementTopShrink = Math.abs(shrinkElementParentTop - shrinkElementTop);
     }
-    console.log("fromContainerTopToElementTopShrink", fromContainerTopToElementTopShrink);
+    SystemLogs.log("fromContainerTopToElementTopShrink", fromContainerTopToElementTopShrink);
 
     // mouse distance from top of dragged element to mouse point in dragged element
     const mouseYInRectangle: number = mouseY - fromContainerTopToElementTop;
-    console.log("mouseYInRectangle", mouseYInRectangle);
+    SystemLogs.log("mouseYInRectangle", mouseYInRectangle);
 
     // radio for calculating the mouse point in shrunk element
     const ratio: number = mouseYInRectangle / draggedElementHeight;
-    console.log("ratio", ratio);
+    SystemLogs.log("ratio", ratio);
 
     // hypothetical mouse distance from top of shrink element to mouse point in shrink element
     // depends on the position of the handle
@@ -97,25 +98,25 @@ export const calculateFillHeights = ({
         fromContainerTopToElementTop +
         mouseYInRectangle -
         (fromContainerTopToElementTopShrink + mouseYInRectangleShrink);
-    console.log("topCompensation", topCompensation);
+    SystemLogs.log("topCompensation", topCompensation);
 
     // easy
     const bottomCompensation: number = leftoverHeight - topCompensation;
-    console.log("bottomCompensation", bottomCompensation);
+    SystemLogs.log("bottomCompensation", bottomCompensation);
 
     // needed for no bottom compensation
     const realMouseY: number = activatorEvent.clientY;
-    console.log("realMouseY", realMouseY);
+    SystemLogs.log("realMouseY", realMouseY);
     const documentBottom: number = document.body.getBoundingClientRect().bottom;
-    console.log("documentBottom", documentBottom);
+    SystemLogs.log("documentBottom", documentBottom);
     const windowBottom: number = window.innerHeight;
-    console.log("windowBottom", windowBottom);
+    SystemLogs.log("windowBottom", windowBottom);
     const fromMouseYToWindowBottom = windowBottom - realMouseY;
-    console.log("fromMouseYToWindowBottom", fromMouseYToWindowBottom);
+    SystemLogs.log("fromMouseYToWindowBottom", fromMouseYToWindowBottom);
     const fromMouseYToDocumentBottom = documentBottom - realMouseY;
-    console.log("fromMouseYToDocumentBottom", fromMouseYToDocumentBottom);
+    SystemLogs.log("fromMouseYToDocumentBottom", fromMouseYToDocumentBottom);
     const leftoverBottomSpace = fromMouseYToDocumentBottom - fromMouseYToWindowBottom;
-    console.log("leftoverBottomSpace", leftoverBottomSpace);
+    SystemLogs.log("leftoverBottomSpace", leftoverBottomSpace);
 
     let bottom: number = 0;
     // we cannot skip compensation, because we don't have enough space
