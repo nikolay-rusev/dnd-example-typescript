@@ -7,12 +7,14 @@ interface CalculateFillHeightsProps {
     };
     containerRef: RefObject<HTMLDivElement | null>;
     topHandle: boolean;
+    allowBottomCompensation: boolean;
 }
 
 export const calculateFillHeights = ({
     event,
     containerRef,
-    topHandle
+    topHandle,
+    allowBottomCompensation
 }: CalculateFillHeightsProps): { top: number; bottom: number } => {
     // scroll offset Y
     const scrollOffset: number = window.scrollY;
@@ -102,8 +104,38 @@ export const calculateFillHeights = ({
     const bottomCompensation: number = leftoverHeight - topCompensation;
     console.log("bottomCompensation", bottomCompensation);
 
+    // needed for no bottom compensation
+    const realMouseY: number = activatorEvent.clientY;
+    console.log("realMouseY", realMouseY);
+    const containerBottom: number = containerRef.current?.getBoundingClientRect().bottom as number;
+    console.log("containerBottom", containerBottom);
+    const documentBottom: number = document.body.getBoundingClientRect().bottom;
+    console.log("documentBottom", documentBottom);
+    const windowBottom: number = window.innerHeight;
+    console.log("windowBottom", windowBottom);
+    const fromMouseYToContainerBottom = containerBottom - realMouseY;
+    console.log("fromMouseYToContainerBottom", fromMouseYToContainerBottom);
+    const fromMouseYToWindowBottom = windowBottom - realMouseY;
+    console.log("fromMouseYToWindowBottom", fromMouseYToWindowBottom);
+    const fromMouseYToDocumentBottom = documentBottom - realMouseY;
+    console.log("fromMouseYToDocumentBottom", fromMouseYToDocumentBottom);
+    const fromContainerBottomToDocumentBottom: number = documentBottom - containerBottom;
+    console.log("fromContainerBottomToDocumentBottom", fromContainerBottomToDocumentBottom);
+
+    const leftoverBottomSpace = fromMouseYToDocumentBottom - fromMouseYToWindowBottom;
+    console.log("leftoverBottomSpace", leftoverBottomSpace);
+
+    let bottom: number = bottomCompensation;
+    if (!allowBottomCompensation) {
+        bottom = 0;
+    }
+    // we cannot skip compensation, because we don't have enough space
+    if (leftoverBottomSpace < bottomCompensation) {
+        bottom = bottomCompensation;
+    }
+
     return {
         top: topCompensation,
-        bottom: bottomCompensation
+        bottom
     };
 };
