@@ -15,10 +15,15 @@ import "./DragNDrop.css";
 
 // handle on top or side - changes recalculation of compensation
 const topHandle: boolean = true;
+// compensate from bottom
 const allowBottomCompensation: boolean = true;
-const scrollToElementAfterDrag: boolean = true;
-const shouldRestoreScrollPosition: boolean = true;
-const randomizeItemHeight: boolean = true;
+// scroll to element after drag
+const scrollAfterDrag: boolean = true;
+// restore scroll position to the one before starting drag
+const restoreScroll: boolean = true;
+// random item height
+const randomizeHeight: boolean = true;
+// elements for drag & drop
 const itemsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const DragNDrop: FC = () => {
@@ -41,7 +46,7 @@ const DragNDrop: FC = () => {
         setTopFillHeight(top);
         setBottomFillHeight(bottom);
 
-        if (shouldRestoreScrollPosition) restoreScrollPosition(scrollOffset);
+        if (restoreScroll) restoreScrollPosition(scrollOffset);
 
         setActiveId(event.active.id as number);
     };
@@ -64,7 +69,7 @@ const DragNDrop: FC = () => {
                 arrayMove(prev, prev.indexOf(Number(activeId)), prev.indexOf(over.id))
             );
             // scroll dragged element into view
-            if (scrollToElementAfterDrag) scrollAfterDragEnd(activeId);
+            if (scrollAfterDrag) scrollAfterDragEnd(activeId);
         }
     };
 
@@ -87,7 +92,7 @@ const DragNDrop: FC = () => {
                             key={id}
                             dummy={dummy}
                             last={index === items.length - 1}
-                            randomizeHeight={randomizeItemHeight}
+                            randomizeHeight={randomizeHeight}
                         />
                     ))}
                 </SortableContext>
