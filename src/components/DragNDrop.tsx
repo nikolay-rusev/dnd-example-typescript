@@ -8,7 +8,7 @@ import {
     RESET_TIMEOUT,
     TRANSITION
 } from "../utils/constants";
-import { restoreScrollPosition, scrollAfterDragEnd } from "../utils/helpers";
+import { scrollAfterDragEnd } from "../utils/helpers";
 import { calculateFillHeights } from "../utils/calc";
 import { SortableItem } from "./SortableItem";
 import "./DragNDrop.css";
@@ -37,7 +37,6 @@ const DragNDrop: FC = () => {
 
         // scroll offset on y
         const scrollOffset: number = window.scrollY;
-        console.log("scrollOffset", scrollOffset);
 
         const { top, bottom } = calculateFillHeights({
             event,
@@ -48,7 +47,7 @@ const DragNDrop: FC = () => {
         setTopFillHeight(top);
         setBottomFillHeight(bottom);
 
-        if (restoreScroll) restoreScrollPosition(scrollOffset);
+        if (restoreScroll) window.scrollTo({ top: scrollOffset });
 
         setActiveId(event.active.id as number);
     };

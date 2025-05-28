@@ -16,6 +16,7 @@ export const calculateFillHeights = ({
 }: CalculateFillHeightsProps): { top: number; bottom: number } => {
     // scroll offset Y
     const scrollOffset: number = window.scrollY;
+    console.log("scrollOffset", scrollOffset);
 
     // Capture the original container height
     const initialHeight: number = containerRef?.current?.getBoundingClientRect().height as number;
