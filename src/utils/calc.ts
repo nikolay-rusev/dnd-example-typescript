@@ -105,21 +105,14 @@ export const calculateFillHeights = ({
     // needed for no bottom compensation
     const realMouseY: number = activatorEvent.clientY;
     console.log("realMouseY", realMouseY);
-    const containerBottom: number = containerRef.current?.getBoundingClientRect().bottom as number;
-    console.log("containerBottom", containerBottom);
     const documentBottom: number = document.body.getBoundingClientRect().bottom;
     console.log("documentBottom", documentBottom);
     const windowBottom: number = window.innerHeight;
     console.log("windowBottom", windowBottom);
-    const fromMouseYToContainerBottom = containerBottom - realMouseY;
-    console.log("fromMouseYToContainerBottom", fromMouseYToContainerBottom);
     const fromMouseYToWindowBottom = windowBottom - realMouseY;
     console.log("fromMouseYToWindowBottom", fromMouseYToWindowBottom);
     const fromMouseYToDocumentBottom = documentBottom - realMouseY;
     console.log("fromMouseYToDocumentBottom", fromMouseYToDocumentBottom);
-    const fromContainerBottomToDocumentBottom: number = documentBottom - containerBottom;
-    console.log("fromContainerBottomToDocumentBottom", fromContainerBottomToDocumentBottom);
-
     const leftoverBottomSpace = fromMouseYToDocumentBottom - fromMouseYToWindowBottom;
     console.log("leftoverBottomSpace", leftoverBottomSpace);
 
