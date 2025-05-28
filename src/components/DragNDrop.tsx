@@ -13,18 +13,21 @@ import { calculateFillHeights } from "../utils/calc";
 import { SortableItem } from "./SortableItem";
 import "./DragNDrop.css";
 
-// handle on top or side - changes recalculation of compensation
-const topHandle: boolean = true;
-// scroll to element after drag
-const scrollAfterDrag: boolean = true;
-// restore scroll position to the one before starting drag
-const restoreScroll: boolean = true;
-// random item height
-const randomizeHeight: boolean = true;
-// elements for drag & drop
-const itemsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+type DragNDropProps = {
+    topHandle: boolean;
+    scrollAfterDrag: boolean;
+    restoreScroll: boolean;
+    randomizeHeight: boolean;
+    itemsArray: number[];
+};
 
-const DragNDrop: FC = () => {
+const DragNDrop: FC<DragNDropProps> = ({
+    topHandle,
+    scrollAfterDrag,
+    restoreScroll,
+    randomizeHeight,
+    itemsArray
+}: DragNDropProps) => {
     const [items, setItems] = useState<number[]>(itemsArray);
     const [activeId, setActiveId] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
